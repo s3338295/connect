@@ -74,11 +74,11 @@ $maxcost=$_GET["macost"];
     and wine.wine_id=inventory.wine_id"; 
     if (isset($winename) && $winename != "") 
     {
-	$query .= " AND wine_name = '{$winename}'";
+	$query .= " AND wine_name LIKE '%{$winename}%'";
     }
     if (isset($wineryname) && $wineryname != "")
     {
-        $query .= " AND winery_name = '{$wineryname}'";
+        $query .= " AND winery_name LIKE '%{$wineryname}%'";
     }
     if (isset($regionname) && $regionname != "All")
     {
@@ -104,7 +104,7 @@ $maxcost=$_GET["macost"];
     {
         $query .= " AND cost between '{$mincost}' and '{$maxcost}'";
     }
-    $query .= " GROUP BY wine_name,variety,year,winery_name,region_name,cost";
+    $query .= " GROUP BY wine_name, variety, year, winery_name, region_name, cost";
 
 
  display($conn,$query,$winename);

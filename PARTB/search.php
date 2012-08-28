@@ -11,23 +11,31 @@ echo mysql_error() . "\n";
 exit;
 }
 ?>
+<script type="text/javascript">
+function validate(search)
+{
+	if(search.fyear.value > search.syear.value)
+        {
+		alert("Please enter the correct range of year");
+		search.syear.focus();
+		return false;
+	}
+	if(search.mcost.value < search.macost.value)
+        {
+                alert("Maximum cost should be greater than Minimum cost");
+                search.macost.select();
+                search.macost.focus();
+                return false;
+        }
+}
+</script>
 <html>
 <head>
 </head>
 <body>
-<form name="search" action="search1.php" method="get">
-Wine Name<input type="text" size="30" name="wname" /><br />
-Winery Name
-<?php
-$query = mysql_query("select winery_name from winery");
-echo '<select name="wiyname">';
-echo "<option value='$row[0]'>All</option><br />";
-while ($row = mysql_fetch_array($query)) {
-echo "<option value='$row[0]'>$row[0]</option><br />";
-}
-echo "</select>";
-echo "<br />";
-?>
+<form name="search" action="search1.php" method="get" onsubmit="return validate(this)">
+Wine Name(or part of a wine name)<input type="text" size="30" name="wname" /><br />
+Winery Name(or part of a winery name)<input type="text" size="30" name="wiyname" /><br />
 Region Name
 <?php
 $query = mysql_query("select region_name from region");
